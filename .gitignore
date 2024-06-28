@@ -27,6 +27,10 @@
 *.lib
 
 # Executables
+mines
 *.exe
 *.out
 *.app
+
+# VS Code
+.vscode
