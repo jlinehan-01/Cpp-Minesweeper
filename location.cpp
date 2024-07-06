@@ -1,25 +1,25 @@
 /******************************************************************************
- * main.cpp                                                                   *
- * Main file for running minesweeper game                                     *
+ * location.cpp                                                               *
+ * class representing a location on a minesweeper board                       *
  *                                                                            *
  * Authors:                                                                   *
  * Joshua Linehan                                                             *
  ******************************************************************************/
 
-#include <iostream>
-
-#include "board.h"
 #include "location.h"
-#include "tile.h"
 
-int main(int argc, char *argv[])
+Location::Location(int x, int y)
 {
-    int width = 30;
-    int height = 16;
-    int mines = 99;
+    this->x = x;
+    this->y = y;
+}
 
-    Board board = Board(width, height, mines);
-    board.printBoard();
+int Location::getX()
+{
+    return x;
+}
 
-    return 0;
+int Location::getY()
+{
+    return y;
 }

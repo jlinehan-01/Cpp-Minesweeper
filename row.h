@@ -1,25 +1,31 @@
 /******************************************************************************
- * main.cpp                                                                   *
- * Main file for running minesweeper game                                     *
+ * row.h                                                                      *
+ * helper class representing a row of tiles on a minesweeper board            *
  *                                                                            *
  * Authors:                                                                   *
  * Joshua Linehan                                                             *
  ******************************************************************************/
 
-#include <iostream>
+#ifndef ROW_H
+#define ROW_H
 
-#include "board.h"
+class Row;
+
+#include <cstdlib>
+
 #include "location.h"
 #include "tile.h"
 
-int main(int argc, char *argv[])
+class Row
 {
-    int width = 30;
-    int height = 16;
-    int mines = 99;
+  private:
+    int width;
+    Tile **tiles;
 
-    Board board = Board(width, height, mines);
-    board.printBoard();
+  public:
+    Row(int width, int rowNum);
+    //~Row();
+    Tile *get(int column);
+};
 
-    return 0;
-}
+#endif
