@@ -11,7 +11,7 @@ FRMT = clang-format-18
 CFLAGS = -Wall -Wextra -Wunused-function -Wunused-parameter -Wpedantic -Wunused-macros -Wunused-local-typedefs
 
 # Source files
-SRC = $(wildcard *.cpp)
+SRC = $(filter-out fflush.cpp, $(wildcard *.cpp))
 
 # Object files
 OBJ = $(SRC:.cpp=.o)
@@ -28,4 +28,7 @@ format:
 
 # removes object and executable files
 clean:
-	rm -f *.o $(EXE) *txt
+	rm -f *.o $(EXE) fflush *txt
+
+fflush: fflush.o
+	$(CC) $(CFLAGS) -o $@ $^
