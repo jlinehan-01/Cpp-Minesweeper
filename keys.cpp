@@ -16,32 +16,36 @@ using namespace std;
 
 int main()
 {
-    cout << "Enter a character: ";
-    char c, d, e;
-    cin >> c;
-    cin >> d;
-    cin >> e;
-    cout << "\nYour character was ";
-    // Using 3 char type, Cause up down right left consist with 3 character
-    if ((c == 27) && (d == 91))
+    cout << "Arrow key" << endl; // proof it doesn't erase other lines
+    while (true)
     {
-        if (e == 65)
+        char c, d, e;
+        cin >> c;
+        cin >> d;
+        cin >> e;
+        cout << "\r\e[K"; // go to start of line and clear
+        cout << "\n\e[K"; // new line and clear
+        // Using 3 char type, Cause up down right left consist with 3 character
+        if ((c == 27) && (d == 91))
         {
-            cout << "UP";
+            if (e == 65)
+            {
+                cout << "UP";
+            }
+            if (e == 66)
+            {
+                cout << "DOWN";
+            }
+            if (e == 67)
+            {
+                cout << "RIGHT";
+            }
+            if (e == 68)
+            {
+                cout << "LEFT";
+            }
         }
-        if (e == 66)
-        {
-            cout << "DOWN";
-        }
-        if (e == 67)
-        {
-            cout << "RIGHT";
-        }
-        if (e == 68)
-        {
-            cout << "LEFT";
-        }
+        cout << "\r" << "\x1b[A"; // go up
     }
-    cout << c << endl << d << endl << e << endl;
     return 0;
 }
