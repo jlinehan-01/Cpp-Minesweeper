@@ -11,7 +11,7 @@ FRMT = clang-format-18
 CFLAGS = -Wall -Wextra -Wunused-function -Wunused-parameter -Wpedantic -Wunused-macros -Wunused-local-typedefs
 
 # Source files
-SRC = $(filter-out fflush.cpp, $(wildcard *.cpp))
+SRC = $(filter-out fflush.cpp keys.cpp, $(wildcard *.cpp))
 
 # Object files
 OBJ = $(SRC:.cpp=.o)

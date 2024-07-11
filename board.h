@@ -15,8 +15,8 @@ class Board;
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
+#include <vector>
 
-#include "row.h"
 #include "tile.h"
 
 class Board
@@ -25,7 +25,7 @@ class Board
     int width;
     int height;
     int mines;
-    Row **rows;
+    std::vector<std::vector<Tile *>> tiles;
     void setMines();
     void setTiles();
 

@@ -13,11 +13,13 @@ Board::Board(int width, int height, int mines)
     this->width = width;
     this->height = height;
     this->mines = mines;
-    rows = (Row **)malloc(sizeof(Row *) * height);
-    assert(rows);
-    for (int i = 0; i < height; i++)
+    for (int y = 0; y < height; y++)
     {
-        rows[i] = new Row(width, i);
+        tiles.push_back(std::vector<Tile *>());
+        for (int x = 0; x < width; x++)
+        {
+            tiles.at(y).push_back(new Tile(new Location(x, y)));
+        }
     }
     setMines();
     setTiles();
@@ -35,7 +37,7 @@ int Board::getHeight()
 
 Tile *Board::get(int column, int row)
 {
-    return rows[row]->get(column);
+    return tiles.at(row).at(column);
 }
 
 void Board::setMines()
@@ -46,9 +48,9 @@ void Board::setMines()
     {
         int x = rand() % width;
         int y = rand() % height;
-        if (!(rows[y]->get(x)->isMine()))
+        if (!(get(x, y)->isMine()))
         {
-            rows[y]->get(x)->setMine();
+            get(x, y)->setMine();
             minesSet++;
         }
     }
