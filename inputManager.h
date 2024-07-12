@@ -32,6 +32,7 @@ class InputManager
     void returnCursor(int column);
 
   public:
+    InputManager();
     Location *getInput(Board *board);
     void gotoStart();
     void gotoEnd(Board *board);

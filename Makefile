@@ -28,4 +28,4 @@ format:
 
 # removes object and executable files
 clean:
-	rm -f *.o $(EXE) fflush keys *txt
+	rm -f *.o $(EXE) *txt

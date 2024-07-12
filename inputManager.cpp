@@ -8,6 +8,12 @@
 
 #include "inputManager.h"
 
+InputManager::InputManager()
+{
+    x = 0;
+    y = 0;
+}
+
 void InputManager::returnCursor(int column)
 {
     // reset to start of line
@@ -20,11 +26,15 @@ void InputManager::returnCursor(int column)
 
 Location *InputManager::getInput(Board *board)
 {
-    // move cursor onto board
-    std::cout << CURSOR_UP;
-    // record coordinates
-    x = 0;
-    y = board->getHeight() - 1;
+    // go to last position
+    for (int i = board->getHeight(); i != y; i--)
+    {
+        std::cout << CURSOR_UP;
+    }
+    for (int i = 0; i != x; i++)
+    {
+        std::cout << CURSOR_RIGHT;
+    }
 
     char c;
     while (true)
