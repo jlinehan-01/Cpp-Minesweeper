@@ -61,8 +61,12 @@ int main(int argc, char *argv[])
         board->printBoard();
         location = inputManager.getInput(board);
         board->open(location);
+        delete (location);
     }
     board->printBoard();
+
+    // free memory
+    delete (board);
 
     return 0;
 }

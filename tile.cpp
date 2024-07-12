@@ -15,6 +15,11 @@ Tile::Tile(Location *location)
     this->opened = false;
 }
 
+Tile::~Tile()
+{
+    delete (location);
+}
+
 /* returns if this tile contains a mine                                       */
 bool Tile::isMine()
 {

@@ -29,6 +29,7 @@ class Tile
 
   public:
     Tile(Location *location);
+    ~Tile();
     bool isMine();
     void setMine();
     void calculateContent(Board *board);

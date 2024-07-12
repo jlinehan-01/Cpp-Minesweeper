@@ -38,6 +38,7 @@ class Board
 
   public:
     Board(int width, int height, int mines);
+    ~Board();
     int getWidth();
     int getHeight();
     Tile *get(int column, int row);

@@ -30,6 +30,17 @@ Board::Board(int width, int height, int mines)
     setTiles();
 }
 
+Board::~Board()
+{
+    for (int y = 0; y < height; y++)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            delete (get(x, y));
+        }
+    }
+}
+
 /* returns the width of the board                                             */
 int Board::getWidth()
 {
@@ -150,7 +161,9 @@ void Board::open(Location *location)
                         {
                             continue;
                         }
-                        open(new Location(x, y));
+                        Location *location = new Location(x, y);
+                        open(location);
+                        delete (location);
                     }
                 }
             }
