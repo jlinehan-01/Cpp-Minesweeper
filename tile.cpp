@@ -15,30 +15,22 @@ Tile::Tile(Location *location)
     this->opened = false;
 }
 
-char Tile::getContent()
-{
-    if (opened)
-    {
-        return content;
-    }
-    else
-    {
-        return UNOPENED;
-    }
-}
-
+/* returns if this tile contains a mine                                       */
 bool Tile::isMine()
 {
     return content == MINE;
 }
 
+/* places a mine on this tile, called when the board is initialised           */
 void Tile::setMine()
 {
     content = MINE;
 }
 
+/* calculates and sets the number displayed when the tile is opened           */
 void Tile::calculateContent(Board *board)
 {
+    // mines are already set
     if (isMine())
     {
         return;
@@ -80,12 +72,11 @@ void Tile::calculateContent(Board *board)
     }
     else
     {
-        char _content[10];
-        sprintf(_content, "%d", mineCount);
-        content = _content[0];
+        content = mineCount + '0';
     }
 }
 
+/* attempts to open the tile                                                  */
 bool Tile::open()
 {
     if (!opened)
@@ -99,11 +90,13 @@ bool Tile::open()
     }
 }
 
+/* returns if there are no mines around the tile                              */
 bool Tile::isEmpty()
 {
     return content == EMPTY;
 }
 
+/* prints the content of the tile to stdout                                   */
 void Tile::printContent()
 {
     if (opened)

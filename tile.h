@@ -29,7 +29,6 @@ class Tile
 
   public:
     Tile(Location *location);
-    char getContent();
     bool isMine();
     void setMine();
     void calculateContent(Board *board);

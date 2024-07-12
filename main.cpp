@@ -50,10 +50,12 @@ int main(int argc, char *argv[])
         return -1;
     }
 
+    // initialise board
     Board *board = new Board(width, height, mines);
     InputManager inputManager;
     Location *location;
 
+    // run game
     while (board->isAlive() && !board->isSolved())
     {
         board->printBoard();

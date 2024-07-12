@@ -35,7 +35,6 @@ class InputManager
     InputManager();
     Location *getInput(Board *board);
     void gotoStart();
-    void gotoEnd(Board *board);
 };
 
 #endif

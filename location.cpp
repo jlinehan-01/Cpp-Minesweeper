@@ -14,11 +14,13 @@ Location::Location(int x, int y)
     this->y = y;
 }
 
+/* returns the x coordinate of the Location                                   */
 int Location::getX()
 {
     return x;
 }
 
+/* returns the y coordinate of the Location                                   */
 int Location::getY()
 {
     return y;

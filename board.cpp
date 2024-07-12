@@ -17,6 +17,7 @@ Board::Board(int width, int height, int mines)
     this->tilesOpened = 0;
     this->solved = false;
     this->alive = true;
+    // generate tiles
     for (int y = 0; y < height; y++)
     {
         tiles.push_back(std::vector<Tile *>());
@@ -29,21 +30,25 @@ Board::Board(int width, int height, int mines)
     setTiles();
 }
 
+/* returns the width of the board                                             */
 int Board::getWidth()
 {
     return width;
 }
 
+/* returns the height of the board                                            */
 int Board::getHeight()
 {
     return height;
 }
 
+/* returns a pointer to the Tile at the specified location                    */
 Tile *Board::get(int column, int row)
 {
     return tiles.at(row).at(column);
 }
 
+/* designates tiles to be mines                                               */
 void Board::setMines()
 {
     int minesSet = 0;
@@ -60,6 +65,7 @@ void Board::setMines()
     }
 }
 
+/* sets the contents of each Tile                                             */
 void Board::setTiles()
 {
     for (int i = 0; i < width; i++)
@@ -71,29 +77,29 @@ void Board::setTiles()
     }
 }
 
+/* prints the board to stdout                                                 */
 void Board::printBoard()
 {
     for (int y = 0; y < height; y++)
     {
-        for (int x = 0; x < width; x++)
-        {
-            get(x, y)->printContent();
-            std::cout << ' ';
-        }
+        printRow(y);
         std::cout << std::endl;
     }
 }
 
+/* returns if the game has been finished                                      */
 bool Board::isSolved()
 {
     return solved;
 }
 
+/* returns if a mine has been hit                                             */
 bool Board::isAlive()
 {
     return alive;
 }
 
+/* prints a specific row of the board. used to overwrite keyboard input       */
 void Board::printRow(int row)
 {
     std::cout << CLEAR_LINE;
@@ -104,12 +110,15 @@ void Board::printRow(int row)
     }
 }
 
+/* opens the tile at location                                                 */
 void Board::open(Location *location)
 {
     Tile *tile = get(location->getX(), location->getY());
+    // ensure tile was opened
     bool openSuccess = tile->open();
     if (openSuccess)
     {
+        // check if we hit a mine
         if (tile->isMine())
         {
             alive = false;
@@ -117,12 +126,14 @@ void Board::open(Location *location)
         }
         else
         {
+            // check for win
             tilesOpened++;
             if (tilesOpened == target)
             {
                 solved = true;
                 return;
             }
+            // check for empty tile
             if (tile->isEmpty())
             {
                 for (int y = location->getY() - 1; y <= location->getY() + 1;
