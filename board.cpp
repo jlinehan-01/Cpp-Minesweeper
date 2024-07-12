@@ -77,9 +77,8 @@ void Board::printBoard()
     {
         for (int x = 0; x < width; x++)
         {
-            setColour(get(x, y)->getContent());
-            std::cout << get(x, y)->getContent() << ' ';
-            resetColour();
+            get(x, y)->printContent();
+            std::cout << ' ';
         }
         std::cout << std::endl;
     }
@@ -100,39 +99,9 @@ void Board::printRow(int row)
     std::cout << CLEAR_LINE;
     for (int x = 0; x < width; x++)
     {
-        setColour(get(x, row)->getContent());
-        std::cout << get(x, row)->getContent() << ' ';
-        resetColour();
+        get(x, row)->printContent();
+        std::cout << ' ';
     }
-}
-
-void Board::setColour(char content)
-{
-    switch (content)
-    {
-    case '1':
-        std::cout << "\033[34m";
-        break;
-    case '2':
-        std::cout << "\033[32m";
-        break;
-    case '3':
-        std::cout << "\033[31m";
-        break;
-    case '4':
-        std::cout << "\033[35m";
-        break;
-    case '5':
-        std::cout << "\033[33m";
-        break;
-    case '6':
-        std::cout << "\033[36m";
-        break;
-    }
-}
-void Board::resetColour()
-{
-    std::cout << "\033[0m";
 }
 
 void Board::open(Location *location)

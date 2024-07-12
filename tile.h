@@ -35,6 +35,7 @@ class Tile
     void calculateContent(Board *board);
     bool open();
     bool isEmpty();
+    void printContent();
 };
 
 #endif

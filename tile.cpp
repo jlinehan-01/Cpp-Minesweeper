@@ -103,3 +103,40 @@ bool Tile::isEmpty()
 {
     return content == EMPTY;
 }
+
+void Tile::printContent()
+{
+    if (opened)
+    {
+        // set colour
+        switch (content)
+        {
+        case '1':
+            std::cout << "\033[34m";
+            break;
+        case '2':
+            std::cout << "\033[32m";
+            break;
+        case '3':
+            std::cout << "\033[31m";
+            break;
+        case '4':
+            std::cout << "\033[35m";
+            break;
+        case '5':
+            std::cout << "\033[33m";
+            break;
+        case '6':
+            std::cout << "\033[36m";
+            break;
+        }
+        // print content
+        std::cout << content;
+        // reset colour
+        std::cout << "\033[0m";
+    }
+    else
+    {
+        std::cout << UNOPENED;
+    }
+}

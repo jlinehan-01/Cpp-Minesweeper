@@ -35,8 +35,6 @@ class Board
     std::vector<std::vector<Tile *>> tiles;
     void setMines();
     void setTiles();
-    void setColour(char content);
-    void resetColour();
 
   public:
     Board(int width, int height, int mines);
