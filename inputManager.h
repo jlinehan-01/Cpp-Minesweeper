@@ -27,10 +27,14 @@
 class InputManager
 {
   private:
+    int x;
+    int y;
     void returnCursor(int column);
 
   public:
     Location *getInput(Board *board);
+    void gotoStart();
+    void gotoEnd(Board *board);
 };
 
 #endif

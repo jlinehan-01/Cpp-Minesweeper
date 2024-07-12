@@ -18,12 +18,14 @@ class Tile;
 
 #define MINE '*'
 #define EMPTY ' '
+#define UNOPENED '#'
 
 class Tile
 {
   private:
     Location *location;
     char content;
+    bool opened; // false
 
   public:
     Tile(Location *location);
@@ -31,6 +33,8 @@ class Tile
     bool isMine();
     void setMine();
     void calculateContent(Board *board);
+    bool open();
+    bool isEmpty();
 };
 
 #endif

@@ -9,12 +9,14 @@
 #include <iostream>
 #include <termios.h>
 #define STDIN_FILENO 0
+#include <stdlib.h>
 
 #include "board.h"
 #include "inputManager.h"
 
 int main(int argc, char *argv[])
 {
+    // prevent buffering keystrokes
     struct termios t;
     tcgetattr(STDIN_FILENO, &t);
     t.c_lflag &= ~ICANON;
@@ -26,13 +28,15 @@ int main(int argc, char *argv[])
 
     Board *board = new Board(width, height, mines);
     InputManager inputManager;
-    board->printBoard();
+    Location *location;
 
     while (board->isAlive() && !board->isSolved())
     {
-        inputManager.getInput(board);
-        std::cout << "ENTER";
+        board->printBoard();
+        location = inputManager.getInput(board);
+        board->open(location);
     }
+    board->printBoard();
 
     return 0;
 }

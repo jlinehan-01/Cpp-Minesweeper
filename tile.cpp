@@ -12,11 +12,19 @@ Tile::Tile(Location *location)
 {
     this->location = location;
     this->content = EMPTY;
+    this->opened = false;
 }
 
 char Tile::getContent()
 {
-    return content;
+    if (opened)
+    {
+        return content;
+    }
+    else
+    {
+        return UNOPENED;
+    }
 }
 
 bool Tile::isMine()
@@ -76,4 +84,22 @@ void Tile::calculateContent(Board *board)
         sprintf(_content, "%d", mineCount);
         content = _content[0];
     }
+}
+
+bool Tile::open()
+{
+    if (!opened)
+    {
+        opened = true;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool Tile::isEmpty()
+{
+    return content == EMPTY;
 }

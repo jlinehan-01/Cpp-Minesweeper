@@ -23,8 +23,8 @@ Location *InputManager::getInput(Board *board)
     // move cursor onto board
     std::cout << CURSOR_UP;
     // record coordinates
-    int x = 0;
-    int y = board->getHeight() - 1;
+    x = 0;
+    y = board->getHeight() - 1;
 
     char c;
     while (true)
@@ -73,5 +73,24 @@ Location *InputManager::getInput(Board *board)
             break;
         }
     }
+    gotoStart();
     return new Location(x, y);
+}
+
+void InputManager::gotoStart()
+{
+    std::cout << "\r";
+    for (int i = y; i > 0; i--)
+    {
+        std::cout << CURSOR_UP;
+    }
+}
+
+void InputManager::gotoEnd(Board *board)
+{
+    std::cout << "\r";
+    for (int i = y; i < board->getHeight(); i++)
+    {
+        std::cout << CURSOR_DOWN;
+    }
 }
