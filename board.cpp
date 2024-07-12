@@ -13,6 +13,8 @@ Board::Board(int width, int height, int mines)
     this->width = width;
     this->height = height;
     this->mines = mines;
+    this->solved = false;
+    this->alive = true;
     for (int y = 0; y < height; y++)
     {
         tiles.push_back(std::vector<Tile *>());
@@ -76,5 +78,24 @@ void Board::printBoard()
             std::cout << get(x, y)->getContent() << ' ';
         }
         std::cout << std::endl;
+    }
+}
+
+bool Board::isSolved()
+{
+    return solved;
+}
+
+bool Board::isAlive()
+{
+    return alive;
+}
+
+void Board::printRow(int row)
+{
+    std::cout << CLEAR_LINE;
+    for (int x = 0; x < width; x++)
+    {
+        std::cout << get(x, row)->getContent() << ' ';
     }
 }

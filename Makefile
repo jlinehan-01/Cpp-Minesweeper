@@ -29,9 +29,3 @@ format:
 # removes object and executable files
 clean:
 	rm -f *.o $(EXE) fflush keys *txt
-
-fflush: fflush.o
-	$(CC) $(CFLAGS) -o $@ $^
-
-keys: keys.o
-	$(CC) $(CFLAGS) -o $@ $^ -lcurses
