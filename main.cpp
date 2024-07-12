@@ -7,12 +7,17 @@
  ******************************************************************************/
 
 #include <iostream>
-#include <termios.h>
-#define STDIN_FILENO 0
 #include <stdlib.h>
+#include <termios.h>
 
 #include "board.h"
 #include "inputManager.h"
+
+#define STDIN_FILENO 0
+#define WIDTH_ARG 1
+#define HEIGHT_ARG 2
+#define MINES_ARG 3
+#define EXPECTED_NUM_ARGS 4
 
 int main(int argc, char *argv[])
 {
@@ -22,9 +27,28 @@ int main(int argc, char *argv[])
     t.c_lflag &= ~ICANON;
     tcsetattr(STDIN_FILENO, TCSANOW, &t);
 
-    int width = 9;
-    int height = 9;
-    int mines = 10;
+    // parse command line arguments
+    if (argc != 4)
+    {
+        std::cout << "usage: ./mines <width> <height> <mines>" << std::endl;
+        return -1;
+    }
+    int width, height, mines;
+    sscanf(argv[WIDTH_ARG], "%d", &width);
+    sscanf(argv[HEIGHT_ARG], "%d", &height);
+    sscanf(argv[MINES_ARG], "%d", &mines);
+
+    // check inputs
+    if (width < 1 || height < 1 || mines < 1)
+    {
+        std::cout << "Must be positive integers" << std::endl;
+        return -1;
+    }
+    if (mines > (width * height))
+    {
+        std::cout << "Too many mines" << std::endl;
+        return -1;
+    }
 
     Board *board = new Board(width, height, mines);
     InputManager inputManager;
