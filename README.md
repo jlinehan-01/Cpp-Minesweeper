@@ -4,6 +4,6 @@ The purpose of this project is to demonstrate the use of the command line interf
 
 ## Usage
 * Compile with make
-* Use ./mines <width> <height> <mines> to run
+* Use ./mines \<width> \<height> \<mines> to run
 * Use arrow keys to move the cursor
 * Use any letter key to open a tile 
