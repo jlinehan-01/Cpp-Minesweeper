@@ -1,6 +1,6 @@
 /******************************************************************************
  * inputManager.cpp                                                           *
- * class hnaling keyboard input including selecting tiles                     *
+ * class handling keyboard input including selecting tiles                     *
  *                                                                            *
  * Authors:                                                                   *
  * Joshua Linehan                                                             *
@@ -87,7 +87,7 @@ Location *InputManager::getInput(Board *board)
             break;
         }
     }
-    // return location if key wasnt an arrow
+    // return location if key wasn't an arrow
     gotoStart();
     return new Location(x, y);
 }
