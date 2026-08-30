@@ -1,13 +1,13 @@
 /******************************************************************************
- * inputManager.h                                                             *
- * class hnaling keyboard input including selecting tiles                     *
+ * ioHandler.h                                                                *
+ * class handling keyboard input including selecting tiles                    *
  *                                                                            *
  * Authors:                                                                   *
  * Joshua Linehan                                                             *
  ******************************************************************************/
 
-#ifndef INPUT_MANAGER_H
-#define INPUT_MANAGER_H
+#ifndef IO_HANDLER_H
+#define IO_HANDLER_H
 
 #include <iostream>
 
@@ -24,7 +24,7 @@
 #define RIGHT_ARROW 67
 #define LEFT_ARROW 68
 
-class InputManager
+class IOHandler
 {
   private:
     int x;
@@ -32,7 +32,7 @@ class InputManager
     void returnCursor(int column);
 
   public:
-    InputManager();
+    IOHandler();
     Location *getInput(Board *board);
     void gotoStart();
 };

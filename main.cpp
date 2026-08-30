@@ -11,7 +11,7 @@
 #include <termios.h>
 
 #include "board.h"
-#include "inputManager.h"
+#include "ioHandler.h"
 
 #define STDIN_FILENO 0
 #define WIDTH_ARG 1
@@ -52,14 +52,14 @@ int main(int argc, char *argv[])
 
     // initialise board
     Board *board = new Board(width, height, mines);
-    InputManager inputManager;
+    IOHandler ioHandler;
     Location *location;
 
     // run game
     while (board->isAlive() && !board->isSolved())
     {
         board->printBoard();
-        location = inputManager.getInput(board);
+        location = ioHandler.getInput(board);
         board->open(location);
         delete (location);
     }

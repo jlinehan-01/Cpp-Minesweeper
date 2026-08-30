@@ -1,21 +1,21 @@
 /******************************************************************************
- * inputManager.cpp                                                           *
- * class handling keyboard input including selecting tiles                     *
+ * ioHandler.cpp                                                              *
+ * class handling keyboard input including selecting tiles                    *
  *                                                                            *
  * Authors:                                                                   *
  * Joshua Linehan                                                             *
  ******************************************************************************/
 
-#include "inputManager.h"
+#include "ioHandler.h"
 
-InputManager::InputManager()
+IOHandler::IOHandler()
 {
     x = 0;
     y = 0;
 }
 
 /* returns the cursor to column                                               */
-void InputManager::returnCursor(int column)
+void IOHandler::returnCursor(int column)
 {
     // reset to start of line
     std::cout << "\r";
@@ -26,7 +26,7 @@ void InputManager::returnCursor(int column)
 }
 
 /* moves cursor with arrow keys and returns the selected location             */
-Location *InputManager::getInput(Board *board)
+Location *IOHandler::getInput(Board *board)
 {
     // go to last position
     for (int i = board->getHeight(); i != y; i--)
@@ -93,7 +93,7 @@ Location *InputManager::getInput(Board *board)
 }
 
 /* returns cursor to the top left of the board                                */
-void InputManager::gotoStart()
+void IOHandler::gotoStart()
 {
     std::cout << "\r";
     for (int i = y; i > 0; i--)
