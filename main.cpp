@@ -11,6 +11,7 @@
 #include <termios.h>
 
 #include "board.h"
+#include "game.h"
 #include "ioHandler.h"
 
 #define STDIN_FILENO 0
@@ -50,23 +51,8 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    // initialise board
-    Board *board = new Board(width, height, mines);
-    IOHandler ioHandler;
-    Location *location;
-
-    // run game
-    while (board->isAlive() && !board->isSolved())
-    {
-        board->printBoard();
-        location = ioHandler.getInput(board);
-        board->open(location);
-        delete (location);
-    }
-    board->printBoard();
-
-    // free memory
-    delete (board);
+    Game game = Game(width, height, mines);
+    game.run();
 
     return 0;
 }
