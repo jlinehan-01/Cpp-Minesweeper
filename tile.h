@@ -16,8 +16,6 @@ class Tile;
 
 #include <iostream>
 
-#define MINE '*'
-#define EMPTY ' '
 #define UNOPENED '#'
 
 class Tile
@@ -28,8 +26,12 @@ class Tile
     bool opened; // false
 
   public:
+    static const char MINE;
+    static const char EMPTY;
+
     Tile(Location *location);
     ~Tile();
+    char getContent();
     bool isMine();
     void setMine();
     void calculateContent(Board *board);

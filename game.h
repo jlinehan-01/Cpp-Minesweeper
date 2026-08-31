@@ -19,9 +19,14 @@ class Game
 {
   private:
     Board *board;
+    int target;
+    int tilesOpened;
+    bool solved; // false
+    bool alive;  // true
 
   public:
     Game(int width, int height, int mines);
+    ~Game();
     void run();
 };
 

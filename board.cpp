@@ -13,10 +13,6 @@ Board::Board(int width, int height, int mines)
     this->width = width;
     this->height = height;
     this->mines = mines;
-    this->target = (width * height) - mines;
-    this->tilesOpened = 0;
-    this->solved = false;
-    this->alive = true;
     // generate tiles
     for (int y = 0; y < height; y++)
     {
@@ -32,11 +28,14 @@ Board::Board(int width, int height, int mines)
 
 Board::~Board()
 {
+    Location *location;
     for (int y = 0; y < height; y++)
     {
         for (int x = 0; x < width; x++)
         {
-            delete (get(x, y));
+            location = new Location(x, y);
+            delete get(location);
+            delete location;
         }
     }
 }
@@ -54,9 +53,9 @@ int Board::getHeight()
 }
 
 /* returns a pointer to the Tile at the specified location                    */
-Tile *Board::get(int column, int row)
+Tile *Board::get(Location *location)
 {
-    return tiles.at(row).at(column);
+    return tiles.at(location->getY()).at(location->getX());
 }
 
 /* designates tiles to be mines                                               */
@@ -68,11 +67,13 @@ void Board::setMines()
     {
         int x = rand() % width;
         int y = rand() % height;
-        if (!(get(x, y)->isMine()))
+        Location *location = new Location(x, y);
+        if (!(get(location)->isMine()))
         {
-            get(x, y)->setMine();
+            get(location)->setMine();
             minesSet++;
         }
+        delete location;
     }
 }
 
@@ -83,7 +84,9 @@ void Board::setTiles()
     {
         for (int j = 0; j < height; j++)
         {
-            get(i, j)->calculateContent(this);
+            Location *location = new Location(i, j);
+            get(location)->calculateContent(this);
+            delete location;
         }
     }
 }
@@ -98,75 +101,15 @@ void Board::printBoard()
     }
 }
 
-/* returns if the game has been finished                                      */
-bool Board::isSolved()
-{
-    return solved;
-}
-
-/* returns if a mine has been hit                                             */
-bool Board::isAlive()
-{
-    return alive;
-}
-
 /* prints a specific row of the board. used to overwrite keyboard input       */
 void Board::printRow(int row)
 {
     std::cout << CLEAR_LINE;
     for (int x = 0; x < width; x++)
     {
-        get(x, row)->printContent();
+        Location *location = new Location(x, row);
+        get(location)->printContent();
+        delete location;
         std::cout << ' ';
-    }
-}
-
-/* opens the tile at location                                                 */
-void Board::open(Location *location)
-{
-    Tile *tile = get(location->getX(), location->getY());
-    // ensure tile was opened
-    bool openSuccess = tile->open();
-    if (openSuccess)
-    {
-        // check if we hit a mine
-        if (tile->isMine())
-        {
-            alive = false;
-            return;
-        }
-        else
-        {
-            // check for win
-            tilesOpened++;
-            if (tilesOpened == target)
-            {
-                solved = true;
-                return;
-            }
-            // check for empty tile
-            if (tile->isEmpty())
-            {
-                for (int y = location->getY() - 1; y <= location->getY() + 1;
-                     y++)
-                {
-                    if (y < 0 || y >= height)
-                    {
-                        continue;
-                    }
-                    for (int x = location->getX() - 1;
-                         x <= location->getX() + 1; x++)
-                    {
-                        if (x < 0 || x >= width)
-                        {
-                            continue;
-                        }
-                        Location *location = new Location(x, y);
-                        open(location);
-                        delete (location);
-                    }
-                }
-            }
-        }
     }
 }

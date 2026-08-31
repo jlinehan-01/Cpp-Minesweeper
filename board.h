@@ -28,10 +28,7 @@ class Board
     int width;
     int height;
     int mines;
-    int target;
-    int tilesOpened;
-    bool solved; // false
-    bool alive;  // true
+
     std::vector<std::vector<Tile *>> tiles;
     void setMines();
     void setTiles();
@@ -41,12 +38,10 @@ class Board
     ~Board();
     int getWidth();
     int getHeight();
-    Tile *get(int column, int row);
+    Tile *get(Location *location);
     void printBoard();
-    bool isSolved();
-    bool isAlive();
     void printRow(int row);
-    void open(Location *location);
+    char open(Location *location);
 };
 
 #endif

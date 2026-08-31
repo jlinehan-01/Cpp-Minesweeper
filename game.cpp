@@ -10,7 +10,16 @@
 
 Game::Game(int width, int height, int mines)
 {
-    board = new Board(width, height, mines);
+    this->board = new Board(width, height, mines);
+    this->target = (width * height) - mines;
+    this->tilesOpened = 0;
+    this->solved = false;
+    this->alive = true;
+}
+
+Game::~Game()
+{
+    delete board;
 }
 
 void Game::run()
@@ -20,15 +29,24 @@ void Game::run()
     Location *location;
 
     // run game
-    while (board->isAlive() && !board->isSolved())
+    while (alive && tilesOpened < target)
     {
         board->printBoard();
         location = ioHandler.getInput(board);
-        board->open(location);
+        Tile *tile = board->get(location);
+        if (tile->open())
+        {
+            char content = tile->getContent();
+            if (content == Tile::MINE)
+            {
+                alive = false;
+            }
+            else
+            {
+                tilesOpened++;
+            }
+        }
         delete (location);
     }
     board->printBoard();
-
-    // free memory
-    delete (board);
 }

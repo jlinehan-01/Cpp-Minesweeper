@@ -8,6 +8,9 @@
 
 #include "tile.h"
 
+const char Tile::MINE = '*';
+const char Tile::EMPTY = ' ';
+
 Tile::Tile(Location *location)
 {
     this->location = location;
@@ -18,6 +21,12 @@ Tile::Tile(Location *location)
 Tile::~Tile()
 {
     delete (location);
+}
+
+/* returns the content of the tile                                            */
+char Tile::getContent()
+{
+    return content;
 }
 
 /* returns if this tile contains a mine                                       */
@@ -64,10 +73,12 @@ void Tile::calculateContent(Board *board)
             {
                 break;
             }
-            if (board->get(i, j)->isMine())
+            Location *location = new Location(i, j);
+            if (board->get(location)->isMine())
             {
                 mineCount++;
             }
+            delete location;
         }
     }
     // set content
