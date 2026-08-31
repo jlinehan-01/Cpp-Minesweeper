@@ -8,7 +8,7 @@ CC = g++
 FRMT = clang-format-18
 
 # Compiler flags
-CFLAGS = -Wall -Wextra -Wunused-function -Wunused-parameter -Wpedantic -Wunused-macros -Wunused-local-typedefs
+CFLAGS = -Wall -Wextra -Wpedantic -Wunused-macros
 
 # Source files
 SRC = $(wildcard *.cpp)
