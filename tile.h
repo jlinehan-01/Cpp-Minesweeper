@@ -29,14 +29,10 @@ class Tile
     static const char MINE;
     static const char EMPTY;
 
-    Tile(Location *location);
+    Tile(Location *location, char content);
     ~Tile();
     char getContent();
-    bool isMine();
-    void setMine();
-    void calculateContent(Board *board);
     bool open();
-    bool isEmpty();
     void printContent();
 };
 

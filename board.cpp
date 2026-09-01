@@ -13,17 +13,84 @@ Board::Board(int width, int height, int mines)
     this->width = width;
     this->height = height;
     this->mines = mines;
+
+    // calculate board contents
+    char boardChars[height][width];
+    memset(boardChars, Tile::EMPTY, sizeof(boardChars));
+    // place mines
+    // enumerate locations
+    std::vector<Location *> locations;
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            locations.push_back(new Location(j, i));
+        }
+    }
+    // choose locations for mines
+    srand(time(NULL));
+    for (int i = 0; i < mines; i++)
+    {
+        int j = rand() % locations.size();
+        boardChars[locations.at(j)->getY()][locations.at(j)->getX()] =
+            Tile::MINE;
+        delete locations.at(j);
+        locations.erase(locations.begin() + j);
+    }
+    for (Location *location : locations)
+    {
+        delete location;
+    }
+
+    // calculate numbers
+    for (int y = 0; y < height; y++)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            if (boardChars[y][x] == Tile::MINE)
+            {
+                continue;
+            }
+            int surroundingMines = 0;
+            for (int i = y - 1; i <= y + 1; i++)
+            {
+                if (i < 0 || i >= height)
+                {
+                    continue;
+                }
+                for (int j = x - 1; j <= x + 1; j++)
+                {
+                    if (j < 0 || j >= width)
+                    {
+                        continue;
+                    }
+                    if (boardChars[i][j] == Tile::MINE)
+                    {
+                        surroundingMines++;
+                    }
+                }
+            }
+            if (surroundingMines == 0)
+            {
+                boardChars[y][x] = Tile::EMPTY;
+            }
+            else
+            {
+                boardChars[y][x] = '0' + surroundingMines;
+            }
+        }
+    }
+
     // generate tiles
     for (int y = 0; y < height; y++)
     {
         tiles.push_back(std::vector<Tile *>());
         for (int x = 0; x < width; x++)
         {
-            tiles.at(y).push_back(new Tile(new Location(x, y)));
+            tiles.at(y).push_back(
+                new Tile(new Location(x, y), boardChars[y][x]));
         }
     }
-    setMines();
-    setTiles();
 }
 
 Board::~Board()
@@ -63,39 +130,6 @@ Tile *Board::get(Location *location)
         return NULL;
     }
     return tiles.at(row).at(column);
-}
-
-/* designates tiles to be mines                                               */
-void Board::setMines()
-{
-    int minesSet = 0;
-    srand(time(NULL));
-    while (minesSet < mines)
-    {
-        int x = rand() % width;
-        int y = rand() % height;
-        Location *location = new Location(x, y);
-        if (!(get(location)->isMine()))
-        {
-            get(location)->setMine();
-            minesSet++;
-        }
-        delete location;
-    }
-}
-
-/* sets the contents of each Tile                                             */
-void Board::setTiles()
-{
-    for (int i = 0; i < width; i++)
-    {
-        for (int j = 0; j < height; j++)
-        {
-            Location *location = new Location(i, j);
-            get(location)->calculateContent(this);
-            delete location;
-        }
-    }
 }
 
 /* prints the board to stdout                                                 */

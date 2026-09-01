@@ -11,10 +11,10 @@
 const char Tile::MINE = '*';
 const char Tile::EMPTY = ' ';
 
-Tile::Tile(Location *location)
+Tile::Tile(Location *location, char content)
 {
     this->location = location;
-    this->content = EMPTY;
+    this->content = content;
     this->opened = false;
 }
 
@@ -29,69 +29,6 @@ char Tile::getContent()
     return content;
 }
 
-/* returns if this tile contains a mine                                       */
-bool Tile::isMine()
-{
-    return content == MINE;
-}
-
-/* places a mine on this tile, called when the board is initialised           */
-void Tile::setMine()
-{
-    content = MINE;
-}
-
-/* calculates and sets the number displayed when the tile is opened           */
-void Tile::calculateContent(Board *board)
-{
-    // mines are already set
-    if (isMine())
-    {
-        return;
-    }
-    // calculate surrounding mines
-    int x = location->getX();
-    int y = location->getY();
-    int mineCount = 0;
-    for (int i = x - 1; i <= x + 1; i++)
-    {
-        if (i < 0)
-        {
-            continue;
-        }
-        if (i >= board->getWidth())
-        {
-            break;
-        }
-        for (int j = y - 1; j <= y + 1; j++)
-        {
-            if (j < 0)
-            {
-                continue;
-            }
-            if (j >= board->getHeight())
-            {
-                break;
-            }
-            Location *location = new Location(i, j);
-            if (board->get(location)->isMine())
-            {
-                mineCount++;
-            }
-            delete location;
-        }
-    }
-    // set content
-    if (mineCount == 0)
-    {
-        content = EMPTY;
-    }
-    else
-    {
-        content = mineCount + '0';
-    }
-}
-
 /* attempts to open the tile                                                  */
 bool Tile::open()
 {
@@ -104,12 +41,6 @@ bool Tile::open()
     {
         return false;
     }
-}
-
-/* returns if there are no mines around the tile                              */
-bool Tile::isEmpty()
-{
-    return content == EMPTY;
 }
 
 /* prints the content of the tile to stdout                                   */

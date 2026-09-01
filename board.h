@@ -13,6 +13,7 @@ class Board;
 
 #include <cassert>
 #include <cstdlib>
+#include <cstring>
 #include <ctime>
 #include <iostream>
 #include <vector>
@@ -28,10 +29,7 @@ class Board
     int width;
     int height;
     int mines;
-
     std::vector<std::vector<Tile *>> tiles;
-    void setMines();
-    void setTiles();
 
   public:
     Board(int width, int height, int mines);
