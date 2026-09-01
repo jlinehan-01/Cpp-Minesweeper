@@ -14,6 +14,7 @@ class Game;
 #include "board.h"
 #include "ioHandler.h"
 #include "location.h"
+#include "tile.h"
 
 class Game
 {
@@ -23,6 +24,8 @@ class Game
     int tilesOpened;
     bool solved; // false
     bool alive;  // true
+    void open(Location *location);
+    void openAround(Location *location);
 
   public:
     Game(int width, int height, int mines);

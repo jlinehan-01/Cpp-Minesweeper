@@ -55,7 +55,14 @@ int Board::getHeight()
 /* returns a pointer to the Tile at the specified location                    */
 Tile *Board::get(Location *location)
 {
-    return tiles.at(location->getY()).at(location->getX());
+    int column = location->getX();
+    int row = location->getY();
+    // check location is valid
+    if (row < 0 || row >= height || column < 0 || column >= width)
+    {
+        return NULL;
+    }
+    return tiles.at(row).at(column);
 }
 
 /* designates tiles to be mines                                               */
