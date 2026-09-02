@@ -8,6 +8,7 @@
 
 #include "tile.h"
 
+const char Tile::UNOPENED = '#';
 const char Tile::MINE = '*';
 const char Tile::EMPTY = ' ';
 
@@ -26,7 +27,7 @@ Tile::~Tile()
 /* returns the content of the tile                                            */
 char Tile::getContent()
 {
-    return content;
+    return opened ? content : UNOPENED;
 }
 
 /* attempts to open the tile                                                  */

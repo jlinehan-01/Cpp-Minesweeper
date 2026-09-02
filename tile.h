@@ -16,11 +16,10 @@ class Tile;
 
 #include <iostream>
 
-#define UNOPENED '#'
-
 class Tile
 {
   private:
+    static const char UNOPENED;
     Location *location;
     char content;
     bool opened; // false

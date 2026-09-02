@@ -14,26 +14,26 @@
 #include "board.h"
 #include "location.h"
 
-#define CLEAR_LINE "\r\e[K"
-#define CURSOR_UP "\033[1A"
-#define CURSOR_DOWN "\033[1B"
-#define CURSOR_RIGHT "\033[2C"
-#define CURSOR_LEFT "\033[2D"
-#define ESCAPE 27
-#define UP_ARROW 65
-#define DOWN_ARROW 66
-#define RIGHT_ARROW 67
-#define LEFT_ARROW 68
-#define BLUE "\033[34m"
-#define GREEN "\033[32m"
-#define RED "\033[31m"
-#define MAGENTA "\033[35m"
-#define YELLOW "\033[33m"
-#define CYAN "\033[36m"
-
 class IOHandler
 {
   private:
+    static const int ESCAPE;
+    static const int UP_ARROW;
+    static const int DOWN_ARROW;
+    static const int RIGHT_ARROW;
+    static const int LEFT_ARROW;
+    static const char *CLEAR_LINE;
+    static const char *CURSOR_UP;
+    static const char *CURSOR_DOWN;
+    static const char *CURSOR_RIGHT;
+    static const char *CURSOR_LEFT;
+    static const char *BLUE;
+    static const char *GREEN;
+    static const char *RED;
+    static const char *MAGENTA;
+    static const char *YELLOW;
+    static const char *CYAN;
+
     int x;
     int y;
     void returnCursor(int column);
