@@ -15,28 +15,29 @@ Game::Game(int width, int height, int mines)
     this->tilesOpened = 0;
     this->solved = false;
     this->alive = true;
+    this->ioHandler = new IOHandler();
 }
 
 Game::~Game()
 {
     delete board;
+    delete ioHandler;
 }
 
 void Game::run()
 {
     // initialise board
-    IOHandler ioHandler;
+    ioHandler->printGame(board);
     Location *location;
 
     // run game
     while (alive && tilesOpened < target)
     {
-        board->printBoard();
-        location = ioHandler.getInput(board);
+        location = ioHandler->getInput(board);
         open(location);
         delete location;
+        ioHandler->printGame(board);
     }
-    board->printBoard();
 }
 
 /* handles opening a tile                                                     */

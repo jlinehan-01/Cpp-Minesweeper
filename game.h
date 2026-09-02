@@ -24,6 +24,7 @@ class Game
     int tilesOpened;
     bool solved; // false
     bool alive;  // true
+    IOHandler *ioHandler;
     void open(Location *location);
     void openAround(Location *location);
 

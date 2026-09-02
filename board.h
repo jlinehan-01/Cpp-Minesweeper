@@ -21,8 +21,6 @@ class Board;
 #include "location.h"
 #include "tile.h"
 
-#define CLEAR_LINE "\r\e[K"
-
 class Board
 {
   private:
@@ -37,8 +35,6 @@ class Board
     int getWidth();
     int getHeight();
     Tile *get(Location *location);
-    void printBoard();
-    void printRow(int row);
     char open(Location *location);
 };
 

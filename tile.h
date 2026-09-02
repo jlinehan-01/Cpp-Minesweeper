@@ -33,7 +33,7 @@ class Tile
     ~Tile();
     char getContent();
     bool open();
-    void printContent();
+    bool isOpened();
 };
 
 #endif

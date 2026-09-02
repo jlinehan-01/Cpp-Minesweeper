@@ -131,26 +131,3 @@ Tile *Board::get(Location *location)
     }
     return tiles.at(row).at(column);
 }
-
-/* prints the board to stdout                                                 */
-void Board::printBoard()
-{
-    for (int y = 0; y < height; y++)
-    {
-        printRow(y);
-        std::cout << std::endl;
-    }
-}
-
-/* prints a specific row of the board. used to overwrite keyboard input       */
-void Board::printRow(int row)
-{
-    std::cout << CLEAR_LINE;
-    for (int x = 0; x < width; x++)
-    {
-        Location *location = new Location(x, row);
-        get(location)->printContent();
-        delete location;
-        std::cout << ' ';
-    }
-}

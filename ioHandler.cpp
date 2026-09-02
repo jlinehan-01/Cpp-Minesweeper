@@ -25,6 +25,72 @@ void IOHandler::returnCursor(int column)
     }
 }
 
+/* returns cursor to the top left of the board                                */
+void IOHandler::gotoStart()
+{
+    std::cout << "\r";
+    for (int i = y; i > 0; i--)
+    {
+        std::cout << CURSOR_UP;
+    }
+}
+
+/* prints a row of the game board                                             */
+void IOHandler::printRow(int row, Board *board)
+{
+    std::cout << CLEAR_LINE;
+    for (int x = 0; x < board->getWidth(); x++)
+    {
+        Location *location = new Location(x, row);
+        Tile *tile = board->get(location);
+        if (tile->isOpened())
+        {
+            // set colour
+            switch (tile->getContent())
+            {
+            case '1':
+                std::cout << BLUE;
+                break;
+            case '2':
+                std::cout << GREEN;
+                break;
+            case '3':
+                std::cout << RED;
+                break;
+            case '4':
+                std::cout << MAGENTA;
+                break;
+            case '5':
+                std::cout << YELLOW;
+                break;
+            case '6':
+                std::cout << CYAN;
+                break;
+            }
+            // print content
+            std::cout << tile->getContent();
+            // reset colour
+            std::cout << "\033[0m";
+        }
+        else
+        {
+            std::cout << UNOPENED;
+        }
+        delete location;
+        std::cout << ' ';
+    }
+};
+
+/* prints the game board                                                      */
+void IOHandler::printBoard(Board *board)
+{
+    for (int y = 0; y < board->getHeight(); y++)
+    {
+        printRow(y, board);
+        std::cout << std::endl;
+    }
+};
+
 /* moves cursor with arrow keys and returns the selected location             */
 Location *IOHandler::getInput(Board *board)
 {
@@ -48,7 +114,7 @@ Location *IOHandler::getInput(Board *board)
             std::cin >> c; // ignore middle character
             std::cin >> c;
             // wipe chars printed by arrow key presses
-            board->printRow(y);
+            printRow(y, board);
             returnCursor(x);
             switch (c)
             {
@@ -92,12 +158,9 @@ Location *IOHandler::getInput(Board *board)
     return new Location(x, y);
 }
 
-/* returns cursor to the top left of the board                                */
-void IOHandler::gotoStart()
+/* prints the game                                                            */
+void IOHandler::printGame(Board *board)
 {
-    std::cout << "\r";
-    for (int i = y; i > 0; i--)
-    {
-        std::cout << CURSOR_UP;
-    }
-}
+    printBoard(board);
+    // TODO: print status bar
+};
