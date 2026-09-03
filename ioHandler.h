@@ -12,6 +12,7 @@
 #include <iostream>
 
 #include "board.h"
+#include "input.h"
 #include "location.h"
 
 class IOHandler
@@ -22,6 +23,8 @@ class IOHandler
     static const int DOWN_ARROW;
     static const int RIGHT_ARROW;
     static const int LEFT_ARROW;
+    static const char OPEN_KEY;
+    static const char FLAG_KEY;
     static const char *CLEAR_LINE;
     static const char *CURSOR_UP;
     static const char *CURSOR_DOWN;
@@ -43,7 +46,7 @@ class IOHandler
 
   public:
     IOHandler();
-    Location *getInput(Board *board);
+    Input *getInput(Board *board);
     void printGame(Board *board);
 };
 

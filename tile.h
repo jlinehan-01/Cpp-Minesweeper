@@ -20,9 +20,12 @@ class Tile
 {
   private:
     static const char UNOPENED;
+    static const char FLAG;
+
     Location *location;
     char content;
-    bool opened; // false
+    bool opened;  // false
+    bool flagged; // false
 
   public:
     static const char MINE;
@@ -32,7 +35,7 @@ class Tile
     ~Tile();
     char getContent();
     bool open();
-    bool isOpened();
+    bool flag();
 };
 
 #endif

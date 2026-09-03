@@ -27,6 +27,7 @@ class Game
     IOHandler *ioHandler;
     void open(Location *location);
     void openAround(Location *location);
+    void flag(Location *location);
 
   public:
     Game(int width, int height, int mines);

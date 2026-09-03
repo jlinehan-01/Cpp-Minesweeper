@@ -9,6 +9,7 @@
 #include "tile.h"
 
 const char Tile::UNOPENED = '#';
+const char Tile::FLAG = 'F';
 const char Tile::MINE = '*';
 const char Tile::EMPTY = ' ';
 
@@ -17,6 +18,7 @@ Tile::Tile(Location *location, char content)
     this->location = location;
     this->content = content;
     this->opened = false;
+    this->flagged = false;
 }
 
 Tile::~Tile()
@@ -27,7 +29,18 @@ Tile::~Tile()
 /* returns the content of the tile                                            */
 char Tile::getContent()
 {
-    return opened ? content : UNOPENED;
+    if (opened)
+    {
+        return content;
+    }
+    else if (flagged)
+    {
+        return FLAG;
+    }
+    else
+    {
+        return UNOPENED;
+    }
 }
 
 /* attempts to open the tile                                                  */
@@ -35,8 +48,15 @@ bool Tile::open()
 {
     if (!opened)
     {
-        opened = true;
-        return true;
+        if (!flagged)
+        {
+            opened = true;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     else
     {
@@ -44,8 +64,16 @@ bool Tile::open()
     }
 }
 
-/* returns true if this tile has been opened, false otherwise                 */
-bool Tile::isOpened()
+/* toggles the tile's flag state                                              */
+bool Tile::flag()
 {
-    return opened;
+    if (!opened)
+    {
+        flagged = !flagged;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }

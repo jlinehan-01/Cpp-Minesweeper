@@ -28,14 +28,22 @@ void Game::run()
 {
     // initialise board
     ioHandler->printGame(board);
-    Location *location;
+    Input *input;
 
     // run game
     while (alive && tilesOpened < target)
     {
-        location = ioHandler->getInput(board);
-        open(location);
-        delete location;
+        input = ioHandler->getInput(board);
+        switch (input->getAction())
+        {
+        case Action::OPEN:
+            open(input->getLocation());
+            break;
+        case Action::FLAG:
+            flag(input->getLocation());
+            break;
+        }
+        delete input;
         ioHandler->printGame(board);
     }
 }
@@ -81,4 +89,10 @@ void Game::openAround(Location *location)
             delete l;
         }
     }
+}
+
+/* flags a tile                                                               */
+void Game::flag(Location *location)
+{
+    board->get(location)->flag();
 }

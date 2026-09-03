@@ -13,6 +13,8 @@ const int IOHandler::UP_ARROW = 65;
 const int IOHandler::DOWN_ARROW = 66;
 const int IOHandler::RIGHT_ARROW = 67;
 const int IOHandler::LEFT_ARROW = 68;
+const char IOHandler::OPEN_KEY = 'z';
+const char IOHandler::FLAG_KEY = 'x';
 const char *IOHandler::CLEAR_LINE = "\r\e[K";
 const char *IOHandler::CURSOR_UP = "\033[1A";
 const char *IOHandler::CURSOR_DOWN = "\033[1B";
@@ -102,7 +104,7 @@ void IOHandler::printBoard(Board *board)
 };
 
 /* moves cursor with arrow keys and returns the selected location             */
-Location *IOHandler::getInput(Board *board)
+Input *IOHandler::getInput(Board *board)
 {
     // go to last position
     for (int i = board->getHeight(); i != y; i--)
@@ -115,12 +117,16 @@ Location *IOHandler::getInput(Board *board)
     }
 
     char c;
-    while (true)
+    bool actionReceived = false;
+    Action action;
+    while (!actionReceived)
     {
         std::cin >> c;
         // handle arrow keys
-        if (c == ESCAPE)
+        switch (c)
         {
+        // arrow keys
+        case ESCAPE:
             std::cin >> c; // ignore middle character
             std::cin >> c;
             // wipe chars printed by arrow key presses
@@ -157,15 +163,25 @@ Location *IOHandler::getInput(Board *board)
                 }
                 break;
             }
-        }
-        else
-        {
+            break;
+        case OPEN_KEY:
+            action = Action::OPEN;
+            actionReceived = true;
+            break;
+        case FLAG_KEY:
+            action = Action::FLAG;
+            actionReceived = true;
+            break;
+        // clear typed characters
+        default:
+            printRow(y, board);
+            returnCursor(x);
             break;
         }
     }
     // return location if key wasn't an arrow
     gotoStart();
-    return new Location(x, y);
+    return new Input(new Location(x, y), action);
 }
 
 /* prints the game                                                            */
