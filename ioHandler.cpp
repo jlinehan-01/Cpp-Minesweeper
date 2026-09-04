@@ -8,26 +8,6 @@
 
 #include "ioHandler.h"
 
-const int IOHandler::ESCAPE = 27;
-const int IOHandler::UP_ARROW = 65;
-const int IOHandler::DOWN_ARROW = 66;
-const int IOHandler::RIGHT_ARROW = 67;
-const int IOHandler::LEFT_ARROW = 68;
-const char IOHandler::OPEN_KEY = 'z';
-const char IOHandler::FLAG_KEY = 'x';
-const char *IOHandler::CLEAR_LINE = "\r\e[K";
-const char *IOHandler::CURSOR_UP = "\033[1A";
-const char *IOHandler::CURSOR_DOWN = "\033[1B";
-const char *IOHandler::CURSOR_RIGHT = "\033[2C";
-const char *IOHandler::CURSOR_LEFT = "\033[2D";
-const char *IOHandler::BLUE = "\033[34m";
-const char *IOHandler::GREEN = "\033[32m";
-const char *IOHandler::RED = "\033[31m";
-const char *IOHandler::MAGENTA = "\033[35m";
-const char *IOHandler::YELLOW = "\033[33m";
-const char *IOHandler::CYAN = "\033[36m";
-const char *IOHandler::FLAG_COLOUR = "\e[41m";
-
 IOHandler::IOHandler()
 {
     x = 0;
