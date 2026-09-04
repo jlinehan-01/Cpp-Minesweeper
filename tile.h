@@ -19,8 +19,7 @@ class Tile;
 class Tile
 {
   private:
-    static const char UNOPENED;
-    static const char FLAG;
+    static constexpr char UNOPENED = '#';
 
     Location *location;
     char content;
@@ -28,8 +27,9 @@ class Tile
     bool flagged; // false
 
   public:
-    static const char MINE;
-    static const char EMPTY;
+    static constexpr char MINE = '*';
+    static constexpr char FLAG = 'F';
+    static constexpr char EMPTY = ' ';
 
     Tile(Location *location, char content);
     ~Tile();

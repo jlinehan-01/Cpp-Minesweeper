@@ -14,6 +14,7 @@
 #include "board.h"
 #include "input.h"
 #include "location.h"
+#include "tile.h"
 
 class IOHandler
 {
@@ -36,6 +37,7 @@ class IOHandler
     static const char *MAGENTA;
     static const char *YELLOW;
     static const char *CYAN;
+    static const char *FLAG_COLOUR;
 
     int x;
     int y;

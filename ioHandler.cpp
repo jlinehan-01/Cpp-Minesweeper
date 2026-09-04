@@ -26,6 +26,7 @@ const char *IOHandler::RED = "\033[31m";
 const char *IOHandler::MAGENTA = "\033[35m";
 const char *IOHandler::YELLOW = "\033[33m";
 const char *IOHandler::CYAN = "\033[36m";
+const char *IOHandler::FLAG_COLOUR = "\e[41m";
 
 IOHandler::IOHandler()
 {
@@ -83,6 +84,8 @@ void IOHandler::printRow(int row, Board *board)
         case '6':
             std::cout << CYAN;
             break;
+        case Tile::FLAG:
+            std::cout << FLAG_COLOUR;
         }
         // print content
         std::cout << tile->getContent();

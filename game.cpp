@@ -54,9 +54,10 @@ void Game::open(Location *location)
     Tile *tile = board->get(location);
     if (tile) // null safety check
     {
-        if (tile->open())
+        bool tileOpened = tile->open();
+        char content = tile->getContent();
+        if (tileOpened)
         {
-            char content = tile->getContent();
             // check if mine was hit
             if (content == Tile::MINE)
             {
@@ -69,6 +70,67 @@ void Game::open(Location *location)
                 if (content == Tile::EMPTY)
                 {
                     openAround(location);
+                }
+            }
+        }
+        // open around appropriately flagged numbers
+        else
+        {
+            if (content != Tile::FLAG && content != Tile::EMPTY)
+            {
+                // count flags around tile
+                int flags = 0;
+                int x = location->getX();
+                int y = location->getY();
+                for (int i = (y - 1); i <= (y + 1); i++)
+                {
+                    for (int j = (x - 1); j <= (x + 1); j++)
+                    {
+                        Location *l = new Location(j, i);
+                        Tile *_tile = board->get(l);
+                        if (_tile)
+                        {
+                            if (_tile->getContent() == Tile::FLAG)
+                            {
+                                flags++;
+                            }
+                        }
+                        delete l;
+                    }
+                }
+                if (tile->getContent() - '0' == flags)
+                {
+                    for (int i = (y - 1); i <= (y + 1); i++)
+                    {
+                        for (int j = (x - 1); j <= (x + 1); j++)
+                        {
+                            Location *l = new Location(j, i);
+                            Tile *_tile = board->get(l);
+                            if (_tile)
+                            {
+                                tileOpened = _tile->open();
+                                content = _tile->getContent();
+                                if (tileOpened)
+                                {
+                                    // check if mine was hit
+                                    if (content == Tile::MINE)
+                                    {
+                                        alive = false;
+                                    }
+                                    else
+                                    {
+                                        tilesOpened++;
+                                        // open around empty tiles
+                                        if (content == Tile::EMPTY)
+                                        {
+                                            openAround(l);
+                                        }
+                                    }
+                                }
+                            }
+                            delete l;
+                        }
+                    }
                 }
             }
         }

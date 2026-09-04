@@ -8,11 +8,6 @@
 
 #include "tile.h"
 
-const char Tile::UNOPENED = '#';
-const char Tile::FLAG = 'F';
-const char Tile::MINE = '*';
-const char Tile::EMPTY = ' ';
-
 Tile::Tile(Location *location, char content)
 {
     this->location = location;
