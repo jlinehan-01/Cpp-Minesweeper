@@ -11,6 +11,8 @@
 
 class Game;
 
+#include <functional>
+
 #include "board.h"
 #include "ioHandler.h"
 #include "location.h"
@@ -21,9 +23,10 @@ class Game
   private:
     Board *board;
     int target;
-    int tilesOpened;
-    bool solved; // false
-    bool alive;  // true
+    int tilesOpened; // 0
+    int flags;       // 0
+    bool solved;     // false
+    bool alive;      // true
     IOHandler *ioHandler;
     void open(Location *location);
     void openAround(Location *location);

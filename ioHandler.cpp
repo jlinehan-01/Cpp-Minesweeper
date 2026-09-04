@@ -8,8 +8,9 @@
 
 #include "ioHandler.h"
 
-IOHandler::IOHandler()
+IOHandler::IOHandler(std::function<int()> mines)
 {
+    this->mines = mines;
     x = 0;
     y = 0;
 }
@@ -86,11 +87,17 @@ void IOHandler::printBoard(Board *board)
     }
 };
 
+/* prints the status bar                                                      */
+void IOHandler::printStatusBar()
+{
+    std::cout << CLEAR_LINE << "mines: " << mines() << std::endl;
+}
+
 /* moves cursor with arrow keys and returns the selected location             */
 Input *IOHandler::getInput(Board *board)
 {
     // go to last position
-    for (int i = board->getHeight(); i != y; i--)
+    for (int i = board->getHeight() + STATUS_BAR_HEIGHT; i != y; i--)
     {
         std::cout << CURSOR_UP;
     }
@@ -162,8 +169,8 @@ Input *IOHandler::getInput(Board *board)
             break;
         }
     }
-    // return location if key wasn't an arrow
     gotoStart();
+    // return location if key wasn't an arrow
     return new Input(new Location(x, y), action);
 }
 
@@ -171,5 +178,5 @@ Input *IOHandler::getInput(Board *board)
 void IOHandler::printGame(Board *board)
 {
     printBoard(board);
-    // TODO: print status bar
+    printStatusBar();
 };

@@ -13,9 +13,10 @@ Game::Game(int width, int height, int mines)
     this->board = new Board(width, height, mines);
     this->target = (width * height) - mines;
     this->tilesOpened = 0;
+    this->flags = 0;
     this->solved = false;
     this->alive = true;
-    this->ioHandler = new IOHandler();
+    this->ioHandler = new IOHandler([this, mines]() { return mines - flags; });
 }
 
 Game::~Game()
@@ -98,6 +99,7 @@ void Game::open(Location *location)
                         delete l;
                     }
                 }
+                // open around tile
                 if (tile->getContent() - '0' == flags)
                 {
                     for (int i = (y - 1); i <= (y + 1); i++)
@@ -156,5 +158,16 @@ void Game::openAround(Location *location)
 /* flags a tile                                                               */
 void Game::flag(Location *location)
 {
-    board->get(location)->flag();
+    Tile *tile = board->get(location);
+    if (tile->flag())
+    {
+        if (tile->isFlagged())
+        {
+            flags++;
+        }
+        else
+        {
+            flags--;
+        }
+    }
 }

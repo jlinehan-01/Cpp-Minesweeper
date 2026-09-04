@@ -9,6 +9,7 @@
 #ifndef IO_HANDLER_H
 #define IO_HANDLER_H
 
+#include <functional>
 #include <iostream>
 
 #include "board.h"
@@ -19,6 +20,7 @@
 class IOHandler
 {
   private:
+    static constexpr const int STATUS_BAR_HEIGHT = 1;
     static constexpr const int ESCAPE = 27;
     static constexpr const int UP_ARROW = 65;
     static constexpr const int DOWN_ARROW = 66;
@@ -41,13 +43,15 @@ class IOHandler
 
     int x;
     int y;
+    std::function<int()> mines;
     void returnCursor(int column);
     void gotoStart();
     void printRow(int row, Board *board);
     void printBoard(Board *board);
+    void printStatusBar();
 
   public:
-    IOHandler();
+    IOHandler(std::function<int()> mines);
     Input *getInput(Board *board);
     void printGame(Board *board);
 };

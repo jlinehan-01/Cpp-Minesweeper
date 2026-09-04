@@ -34,6 +34,7 @@ class Tile
     Tile(Location *location, char content);
     ~Tile();
     char getContent();
+    bool isFlagged();
     bool open();
     bool flag();
 };

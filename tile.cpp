@@ -38,6 +38,12 @@ char Tile::getContent()
     }
 }
 
+/* returns true if this tile is flagged, false otherwise                      */
+bool Tile::isFlagged()
+{
+    return flagged;
+}
+
 /* attempts to open the tile                                                  */
 bool Tile::open()
 {
