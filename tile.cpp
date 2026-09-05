@@ -8,17 +8,11 @@
 
 #include "tile.h"
 
-Tile::Tile(Location *location, char content)
+Tile::Tile(char content)
 {
-    this->location = location;
     this->content = content;
     this->opened = false;
     this->flagged = false;
-}
-
-Tile::~Tile()
-{
-    delete (location);
 }
 
 /* returns the content of the tile                                            */

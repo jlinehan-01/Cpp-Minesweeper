@@ -21,7 +21,6 @@ class Tile
   private:
     static constexpr char UNOPENED = '#';
 
-    Location *location;
     char content;
     bool opened;  // false
     bool flagged; // false
@@ -31,8 +30,7 @@ class Tile
     static constexpr char FLAG = 'F';
     static constexpr char EMPTY = ' ';
 
-    Tile(Location *location, char content);
-    ~Tile();
+    Tile(char content);
     char getContent();
     bool isFlagged();
     bool open();

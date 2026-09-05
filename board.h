@@ -35,7 +35,7 @@ class Board
     int getWidth();
     int getHeight();
     Tile *get(Location *location);
-    char open(Location *location);
+    void initialise(Location *firstMove);
 };
 
 #endif

@@ -14,15 +14,15 @@ Game::Game(int width, int height, int mines)
     this->target = (width * height) - mines;
     this->tilesOpened = 0;
     this->flags = 0;
-    this->solved = false;
     this->alive = true;
+    this->firstMoveMade = false;
     this->ioHandler = new IOHandler([this, mines]() { return mines - flags; });
 }
 
 Game::~Game()
 {
-    delete board;
     delete ioHandler;
+    delete board;
 }
 
 void Game::run()
@@ -59,6 +59,12 @@ void Game::open(Location *location)
         char content = tile->getContent();
         if (tileOpened)
         {
+            // initialise board if no moves made
+            if (!firstMoveMade)
+            {
+                board->initialise(location);
+                firstMoveMade = true;
+            }
             // check if mine was hit
             if (content == Tile::MINE)
             {

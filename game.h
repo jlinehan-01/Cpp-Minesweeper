@@ -23,10 +23,10 @@ class Game
   private:
     Board *board;
     int target;
-    int tilesOpened; // 0
-    int flags;       // 0
-    bool solved;     // false
-    bool alive;      // true
+    int tilesOpened;    // 0
+    int flags;          // 0
+    bool alive;         // true
+    bool firstMoveMade; // false
     IOHandler *ioHandler;
     void open(Location *location);
     void openAround(Location *location);

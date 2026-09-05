@@ -19,6 +19,7 @@
 #define HEIGHT_ARG 2
 #define MINES_ARG 3
 #define EXPECTED_NUM_ARGS 4
+#define MIN_EMPTY_TILES 9
 
 int main(int argc, char *argv[])
 {
@@ -32,7 +33,7 @@ int main(int argc, char *argv[])
     if (argc != 4)
     {
         std::cout << "usage: ./mines <width> <height> <mines>" << std::endl;
-        return -1;
+        return EXIT_FAILURE;
     }
     int width, height, mines;
     sscanf(argv[WIDTH_ARG], "%d", &width);
@@ -43,16 +44,21 @@ int main(int argc, char *argv[])
     if (width < 1 || height < 1 || mines < 1)
     {
         std::cout << "Must be positive integers" << std::endl;
-        return -1;
+        return EXIT_FAILURE;
     }
-    if (mines > (width * height))
+    if (width * height < MIN_EMPTY_TILES)
+    {
+        std::cout << "Board too small" << std::endl;
+        return EXIT_FAILURE;
+    }
+    if (mines > ((width * height) - MIN_EMPTY_TILES))
     {
         std::cout << "Too many mines" << std::endl;
-        return -1;
+        return EXIT_FAILURE;
     }
 
     Game game = Game(width, height, mines);
     game.run();
 
-    return 0;
+    return EXIT_SUCCESS;
 }
