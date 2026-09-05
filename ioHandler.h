@@ -10,6 +10,7 @@
 #define IO_HANDLER_H
 
 #include <functional>
+#include <iomanip>
 #include <iostream>
 
 #include "board.h"
@@ -21,6 +22,7 @@ class IOHandler
 {
   private:
     static constexpr const int STATUS_BAR_HEIGHT = 1;
+    static constexpr const int MINE_COUNT_WIDTH = 2;
     static constexpr const int ESCAPE = 27;
     static constexpr const int UP_ARROW = 65;
     static constexpr const int DOWN_ARROW = 66;

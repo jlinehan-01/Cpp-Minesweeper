@@ -90,7 +90,8 @@ void IOHandler::printBoard(Board *board)
 /* prints the status bar                                                      */
 void IOHandler::printStatusBar()
 {
-    std::cout << CLEAR_LINE << "mines: " << mines() << std::endl;
+    std::cout << CLEAR_LINE << "mines: " << std::fixed
+              << std::setw(MINE_COUNT_WIDTH) << mines() << std::endl;
 }
 
 /* moves cursor with arrow keys and returns the selected location             */
